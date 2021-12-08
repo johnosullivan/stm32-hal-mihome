@@ -25,9 +25,7 @@
 #define BMP280_REG_ID          0xD0
 #define BMP280_REG_CALIB       0x88
 #define BMP280_REG_HUM_CALIB   0x88
-
 #define BMP280_RESET_VALUE     0xB6
-
 
 
 void BMP280_Init_Default_Params(bmp280_params_t *params) {
@@ -44,23 +42,23 @@ static bool read_register16(BMP280_HandleTypedef *dev, uint8_t addr, uint16_t *v
 	uint8_t rx_buff[2];
 	tx_buff = (dev->addr << 1);
 
-	if (HAL_I2C_Mem_Read(dev->i2c, tx_buff, addr, 1, rx_buff, 2, 5000)
-			== HAL_OK) {
+	if (HAL_I2C_Mem_Read(dev->i2c, tx_buff, addr, 1, rx_buff, 2, 5000) == HAL_OK) {
 		*value = (uint16_t) ((rx_buff[1] << 8) | rx_buff[0]);
 		return true;
-	} else
+	} else {
 		return false;
-
+	}
 }
 
 static inline int read_data(BMP280_HandleTypedef *dev, uint8_t addr, uint8_t *value, uint8_t len) {
 	uint16_t tx_buff;
 	tx_buff = (dev->addr << 1);
-	if (HAL_I2C_Mem_Read(dev->i2c, tx_buff, addr, 1, value, len, 5000) == HAL_OK)
-		return 0;
-	else
-		return 1;
 
+	if (HAL_I2C_Mem_Read(dev->i2c, tx_buff, addr, 1, value, len, 5000) == HAL_OK) {
+		return 0;
+	} else {
+		return 1;
+	}
 }
 
 static bool read_calibration_data(BMP280_HandleTypedef *dev) {
@@ -76,9 +74,7 @@ static bool read_calibration_data(BMP280_HandleTypedef *dev) {
 			&& read_register16(dev, 0x98, (uint16_t *) &dev->dig_P6)
 			&& read_register16(dev, 0x9a, (uint16_t *) &dev->dig_P7)
 			&& read_register16(dev, 0x9c, (uint16_t *) &dev->dig_P8)
-			&& read_register16(dev, 0x9e,
-					(uint16_t *) &dev->dig_P9)) {
-
+			&& read_register16(dev, 0x9e, (uint16_t *) &dev->dig_P9)) {
 		return true;
 	}
 
@@ -108,10 +104,11 @@ static int write_register8(BMP280_HandleTypedef *dev, uint8_t addr, uint8_t valu
 
 	tx_buff = (dev->addr << 1);
 
-	if (HAL_I2C_Mem_Write(dev->i2c, tx_buff, addr, 1, &value, 1, 10000) == HAL_OK)
+	if (HAL_I2C_Mem_Write(dev->i2c, tx_buff, addr, 1, &value, 1, 10000) == HAL_OK) {
 		return false;
-	else
+	} else {
 		return true;
+	}
 }
 
 bool BMP280_Init(BMP280_HandleTypedef *dev, bmp280_params_t *params) {
@@ -324,6 +321,3 @@ bool BMP280_Read_Float(BMP280_HandleTypedef *dev, float *temperature, float *pre
 
 	return false;
 }
-
-
-

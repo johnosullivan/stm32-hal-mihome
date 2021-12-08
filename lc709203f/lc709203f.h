@@ -78,11 +78,35 @@ uint16_t read_lc709(LC709203_HandleTypedef *config, uint8_t command);
 int write_lc709(LC709203_HandleTypedef *config, uint8_t command, uint16_t data);
 long map(long x, long in_min, long in_max, long out_min, long out_max);
 
-/* primary functions */
+/**
+ * Initialize default parameters.
+ * Default configuration:
+ *      addr: LC709203F_I2CADDR_DEFAULT
+ */
 LC709203_status_t LC709203_Init(LC709203_HandleTypedef *config);
+
+/**
+ * Read version - LC709203.
+ * - IC Version as hexadecimal (uint16_t).
+ */
 LC709203_status_t LC709203_Read_IC_Version(LC709203_HandleTypedef *config);
+
+/**
+ * Read voltage - LC709203.
+ * - Voltage as hexadecimal (uint16_t).
+ */
 LC709203_status_t LC709203_Read_Voltage(LC709203_HandleTypedef *config);
+
+/**
+ * Read cell percent - LC709203.
+ * - Percent as hexadecimal (uint16_t).
+ */
 LC709203_status_t LC709203_Read_Cell_Percent(LC709203_HandleTypedef *config);
+
+/**
+ * Read cell temperature - LC709203.
+ * - Temperature as hexadecimal (uint16_t).
+ */
 LC709203_status_t LC709203_Read_Cell_Temperature(LC709203_HandleTypedef *config);
 
 #endif

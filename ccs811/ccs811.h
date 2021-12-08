@@ -58,8 +58,25 @@ typedef struct {
     I2C_HandleTypeDef* i2c;
 } CCS811_HandleTypedef;
 
+/**
+ * Initialize default parameters.
+ * Default configuration:
+ * - Addr: CCS811_I2C_ADDR_0
+ */
 bool CCS811_Init(CCS811_HandleTypedef *dev);
+
+/**
+ * Read compensated temperature and pressure data.
+ * - CO2 in units
+ * - TVOC in units
+ */
 void CCS811_Measure_CO2_TVOC(CCS811_HandleTypedef *dev, uint32_t *co2, uint32_t *tvoc);
+
+/**
+ * Read compensated temperature and pressure data.
+ * - Temperature in degrees celsius
+ * - Humidity is percent relative humidity
+ */
 void CCS811_Temp_RH_Compensation(CCS811_HandleTypedef *dev, float temp, float rh);
 
 #ifdef __cplusplus
